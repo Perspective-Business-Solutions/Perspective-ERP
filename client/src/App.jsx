@@ -38,16 +38,20 @@ function Layout({ session, onLogout }) {
 }
 
 export default function App() {
-  const [session, setSession] = useState(() => localStorage.getItem('erp_session'))
-
+  const [session, setSession] = useState(() => {
+    const stored = localStorage.getItem('erp_session')
+    // ignore the stale "false" value saved by the old buggy logout
+    return stored && stored !== 'false' ? stored : null
+ })
   const login = (email) => {
     localStorage.setItem('erp_session', email)
     setSession(email)
   }
   const logout = () => {
-    localStorage.setItem('erp_session', 'false')
-    setSession('false')
-  }
+       localStorage.removeItem('erp_session')
+    setSession(null)
+   }
+  
 
   return (
     <Routes>
