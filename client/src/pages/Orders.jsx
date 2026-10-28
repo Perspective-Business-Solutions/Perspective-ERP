@@ -35,7 +35,7 @@ export default function Orders() {
       },
       ...orders,
     ])
-    setProducts(products.map((p) => (p.id === product.id ? { ...p, stock: p.stock - 1 } : p)))
+    setProducts(products.map((p) => (p.id === product.id ? { ...p, stock: p.stock - qty } : p)))
     setError('')
     setOpen(false)
   }
